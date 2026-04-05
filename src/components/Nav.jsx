@@ -1,39 +1,15 @@
+import logo from "../assets/Logo.png";
 const Nav = () => {
 	return (
 		<header>
-			<nav>
-				<div class="dropdown">
-					<button
-						class="btn btn-primary dropdown-toggle"
-						type="button"
-						data-bs-toggle="dropdown"
-						aria-expanded="false">
-						Dropdown
-					</button>
-					<ul class="dropdown-menu">
-						<li>
-							<button
-								class="dropdown-item"
-								type="button">
-								Dropdown item
-							</button>
-						</li>
-						<li>
-							<button
-								class="dropdown-item"
-								type="button">
-								Dropdown item
-							</button>
-						</li>
-						<li>
-							<button
-								class="dropdown-item"
-								type="button">
-								Dropdown item
-							</button>
-						</li>
-					</ul>
-				</div>
+			<nav className=" col-12 d-flex bg-primary bg-gradient w-100 h-fit ">
+				<a href="/home">
+					<img
+						src={logo}
+						alt="Touve ton artisan logo"
+						className="tta d-flex align-items-start ms-5"
+					/>
+				</a>
 			</nav>
 		</header>
 	);
