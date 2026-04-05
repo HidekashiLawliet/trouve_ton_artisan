@@ -1,15 +1,16 @@
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Home from "./components/Home";
+import Nav from "./components/Nav";
 
-function App() {
+export default function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-			</header>
+			<Nav />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/nav" element={<Nav />} />
+			</Routes>
 		</div>
 	);
 }
-
-export default App;
