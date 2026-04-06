@@ -1,0 +1,109 @@
+import "bootstrap-icons/font/bootstrap-icons.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './App.scss';
+import Navbar from "./components/Navbar";
+import Alimentation from "./pages/Alimentation";
+import Batiment from "./pages/Batiment";
+import Fabrication from "./pages/Fabrication";
+import Home from "./pages/home";
+import Services from "./pages/Services";
+
+// function pour la carte du profile github
+
+//affiche de l'écran principale
+function Display() {
+	return (
+		<section className="desktop">
+			<Home />
+			<SkillsPart />
+		</section>
+	);
+}
+
+
+// function servant a gérér la navigation et la gestion d'erreurs de tailles d'écran
+function App() {
+
+	{/* variable pour la gestion de heuteur et l'argeur de l'écran*/ }
+	const [screenWidthError, setscreenWidthError] = useState(false);
+	const [screenHeightError, setscreenHeightError] = useState(false);
+
+	{/* fonction pour récupérer la largeur de l'écran*/ }
+	useEffect(() => {
+		const screenWidth = window.matchMedia("(max-width: 319px)");
+		const updateWidth = () => setscreenWidthError(screenWidth.matches);
+		if (screenWidth.addEventListener) {
+			screenWidth.addEventListener("change", updateWidth);
+			return () => screenWidth.removeEventListener("change", updateWidth);
+		}
+	}, []);
+
+	{/* fonction pour récupérer la hauteur de l'écran*/ }
+	useEffect(() => {
+		const screenHeight = window.matchMedia("(max-height: 399px)");
+		const updateHeight = () => setscreenHeightError(screenHeight.matches);
+		if (screenHeight.addEventListener) {
+			screenHeight.addEventListener("change", updateHeight);
+			return () => screenHeight.removeEventListener("change", updateHeight);
+		}
+	})
+
+	{/* si l'écran est trop petit en largeur ou hauter*/ }
+	if (screenWidthError || screenHeightError) {
+		{/* si l'écran est pas assez large affiche un message d'erreur aproprié */ }
+		if (screenWidthError) {
+			return (
+				<div className="min-vh-100 d-flex align-items-center justify-content-center bg-dark text-white px-3">
+					<div className="text-center">
+						<i className="bi bi-phone text-warning fs-1" aria-hidden="true"></i>
+						<h1 className="h4 mt-3">Écran trop petit</h1>
+						<p className="mb-2">
+							Pour afficher ce site correctement, utilisez un écran d’au moins 320 pixels de large.
+						</p>
+						<p className="small text-secondary mb-0">
+							Astuce : passez votre téléphone en mode paysage.
+						</p>
+					</div>
+				</div>
+			);
+		} else if (screenHeightError) {
+			{/* si l'écran est pas assez haut affiche un message d'erreur aproprié */ }
+			return (
+				<div className="min-vh-100 d-flex align-items-center justify-content-center bg-dark text-white px-3">
+					<div className="text-center">
+						<i className="bi bi-phone text-warning fs-1" aria-hidden="true"></i>
+						<h1 className="h4 mt-3">Écran trop petit</h1>
+						<p className="mb-2">
+							Pour afficher ce site correctement, utilisez un écran d’au moins 400 pixel de hauteur.
+						</p>
+						<p className="small text-secondary mb-0">
+							Astuce : passez votre téléphone en mode portrait.
+						</p>
+					</div>
+				</div>
+			);
+		}
+	}
+
+
+	{ /* sert à afficher la page active */ }
+	return (
+		<BrowserRouter>
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<Display />} />
+				<Route path="/alimentation" element={<Alimentation />} />
+				<Route path="/batiment" element={<Batiment />} />
+				<Route path="/fabrication" element={<Fabrication />} />
+				<Route path="/services" element={<Services />} />
+			</Routes>
+			<Footer />
+		</BrowserRouter>
+	);
+
+}
+
+export default App;
