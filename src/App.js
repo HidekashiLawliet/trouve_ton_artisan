@@ -4,25 +4,13 @@ import "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.mi
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.scss';
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Alimentation from "./pages/Alimentation";
 import Batiment from "./pages/Batiment";
 import Fabrication from "./pages/Fabrication";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import Services from "./pages/Services";
-
-// function pour la carte du profile github
-
-//affiche de l'écran principale
-function Display() {
-	return (
-		<section className="desktop">
-			<Home />
-			<SkillsPart />
-		</section>
-	);
-}
-
 
 // function servant a gérér la navigation et la gestion d'erreurs de tailles d'écran
 function App() {
@@ -94,7 +82,7 @@ function App() {
 		<BrowserRouter>
 			<Navbar />
 			<Routes>
-				<Route path="/" element={<Display />} />
+				<Route path="/" element={<Home />} />
 				<Route path="/alimentation" element={<Alimentation />} />
 				<Route path="/batiment" element={<Batiment />} />
 				<Route path="/fabrication" element={<Fabrication />} />
