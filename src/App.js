@@ -9,17 +9,17 @@ import Navbar from "./components/Navbar";
 import Alimentation from "./pages/Alimentation";
 import Batiment from "./pages/Batiment";
 import Fabrication from "./pages/Fabrication";
-import Home from "./pages/Home";
+import Home from "./pages/prout";
 import Services from "./pages/Services";
 
-// function servant a gérér la navigation et la gestion d'erreurs de tailles d'écran
-function App() {
 
-	{/* variable pour la gestion de heuteur et l'argeur de l'écran*/ }
+
+function App() {
+	/* variable pour la gestion de heuteur et l'argeur de l'écran*/
 	const [screenWidthError, setscreenWidthError] = useState(false);
 	const [screenHeightError, setscreenHeightError] = useState(false);
 
-	{/* fonction pour récupérer la largeur de l'écran*/ }
+	/* fonction pour récupérer la largeur de l'écran*/
 	useEffect(() => {
 		const screenWidth = window.matchMedia("(max-width: 319px)");
 		const updateWidth = () => setscreenWidthError(screenWidth.matches);
@@ -29,7 +29,7 @@ function App() {
 		}
 	}, []);
 
-	{/* fonction pour récupérer la hauteur de l'écran*/ }
+	/* fonction pour récupérer la hauteur de l'écran*/
 	useEffect(() => {
 		const screenHeight = window.matchMedia("(max-height: 399px)");
 		const updateHeight = () => setscreenHeightError(screenHeight.matches);
@@ -39,9 +39,9 @@ function App() {
 		}
 	})
 
-	{/* si l'écran est trop petit en largeur ou hauter*/ }
+	/* si l'écran est trop petit en largeur ou hauter*/
 	if (screenWidthError || screenHeightError) {
-		{/* si l'écran est pas assez large affiche un message d'erreur aproprié */ }
+		/* si l'écran est pas assez large affiche un message d'erreur aproprié */
 		if (screenWidthError) {
 			return (
 				<div className="min-vh-100 d-flex align-items-center justify-content-center bg-dark text-white px-3">
@@ -58,7 +58,7 @@ function App() {
 				</div>
 			);
 		} else if (screenHeightError) {
-			{/* si l'écran est pas assez haut affiche un message d'erreur aproprié */ }
+			/* si l'écran est pas assez haut affiche un message d'erreur aproprié */
 			return (
 				<div className="min-vh-100 d-flex align-items-center justify-content-center bg-dark text-white px-3">
 					<div className="text-center">
@@ -76,18 +76,20 @@ function App() {
 		}
 	}
 
-
-	{ /* sert à afficher la page active */ }
+	/* sert à afficher la page active */
 	return (
 		<BrowserRouter>
 			<Navbar />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/alimentation" element={<Alimentation />} />
-				<Route path="/batiment" element={<Batiment />} />
-				<Route path="/fabrication" element={<Fabrication />} />
-				<Route path="/services" element={<Services />} />
-			</Routes>
+			<main className="content">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/home" element={<Home />} />
+					<Route path="/alimentation" element={<Alimentation />} />
+					<Route path="/batiment" element={<Batiment />} />
+					<Route path="/fabrication" element={<Fabrication />} />
+					<Route path="/services" element={<Services />} />
+				</Routes>
+			</main >
 			<Footer />
 		</BrowserRouter>
 	);

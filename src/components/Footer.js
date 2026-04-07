@@ -11,30 +11,30 @@ export default function Footer() {
                     <span>+33 (0)4 26 73 40 00</span>
                 </div>
                 <div className="d-flex flex-column text-center my-auto w-fit col-md-3 mx-auto">
-                    <a href="/alimentation" className=" text-white text-decoration-none">
+                    <a href="/alimentation" className="text-white text-decoration-none">
                         <span className="">Alimentation</span>
                     </a>
-                    <a href="/batiment" className=" text-white text-decoration-none">
+                    <a href="/batiment" className="text-white text-decoration-none">
                         <span className="">Batîment</span>
                     </a>
-                    <a href="/fabrication" className=" text-white text-decoration-none">
+                    <a href="/fabrication" className="text-white text-decoration-none">
                         <span className="">Fabrication</span>
                     </a>
-                    <a href="/services" className=" text-white text-decoration-none">
+                    <a href="/services" className="text-white text-decoration-none">
                         <span className="">Services</span>
                     </a>
                 </div>
                 <div className="d-flex flex-column text-center my-auto w-fit col-md-3 mx-auto">
-                    <a href="/mentions_legales" className=" text-white text-decoration-none">
+                    <a href="/mentions_legales" className="text-white text-decoration-none">
                         <span className="">Mentions Légales</span>
                     </a>
-                    <a href="/accessibilite" className=" text-white text-decoration-none">
+                    <a href="/accessibilite" className="text-white text-decoration-none">
                         <span className="">Accessibilité</span>
                     </a>
-                    <a href="/donnees_personnels" className=" text-white text-decoration-none">
+                    <a href="/donnees_personnels" className="text-white text-decoration-none">
                         <span className="">Données personnels</span>
                     </a>
-                    <a href="/cookies" className=" text-white text-decoration-none">
+                    <a href="/cookies" className="text-white text-decoration-none">
                         <span className="">Cookies</span>
                     </a>
                 </div>
