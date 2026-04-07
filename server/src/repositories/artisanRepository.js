@@ -1,7 +1,9 @@
 const db = require("../db/database");
 const { normalizeCategory } = require("../utils/normalizeCategory");
 
+// Chaque ligne SQLite est reformatee ici pour garder un contrat stable cote front.
 function mapArtisan(row) {
+    // Cette transformation adapte les colonnes SQLite au format attendu par le front.
     return {
         id: row.id,
         nom: row.nom,
@@ -18,6 +20,7 @@ function mapArtisan(row) {
 }
 
 function getAllArtisans() {
+    // Cette requete sert de base pour les listings complets.
     return db.prepare(`
         SELECT
             rowid AS id,
@@ -38,6 +41,7 @@ function getAllArtisans() {
 function getArtisansByCategorySlug(slug) {
     const normalizedTarget = normalizeCategory(slug);
 
+    // Le filtrage final se fait apres normalisation pour absorber les variations d'ecriture.
     return db.prepare(`
         SELECT
             rowid AS id,
@@ -56,6 +60,7 @@ function getArtisansByCategorySlug(slug) {
 }
 
 function getTopArtisans() {
+    // La page d'accueil ne consomme que les artisans marques comme top.
     return db.prepare(`
         SELECT
             rowid AS id,

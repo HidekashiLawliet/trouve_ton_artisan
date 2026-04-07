@@ -1,6 +1,7 @@
 const db = require("../db/database");
 const { normalizeCategory } = require("../utils/normalizeCategory");
 
+// Le libelle visible dans le front est derive du slug normalise.
 function toDisplayName(slug) {
     return slug.charAt(0).toUpperCase() + slug.slice(1);
 }
@@ -13,6 +14,7 @@ function getAllCategories() {
         ORDER BY categorie ASC
     `).all();
 
+    // On dedoublonne apres normalisation pour ne garder qu'un slug par categorie.
     const uniqueCategories = Array.from(
         new Map(
             rows.map((row) => {

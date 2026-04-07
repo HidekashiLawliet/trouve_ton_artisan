@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import useArtisans from "../hooks/useArtisans";
 
+// Cette page generique permet d'afficher n'importe quelle categorie d'artisans avec une seule structure.
 export default function ArtisansPage({ title, category, topOnly = false }) {
     const { artisans, loading, error } = useArtisans(category, { topOnly });
     const [selectedArtisan, setSelectedArtisan] = useState(null);
     const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
+    // Quand une modale est ouverte, on bloque le scroll de fond et on gere Echap.
     useEffect(() => {
         if (!selectedArtisan && !isContactFormOpen) {
             document.body.style.overflow = "";
@@ -43,7 +45,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                                 <div className="step_circle mx-auto mb-3 rounded-circle bg-white d-flex align-items-center justify-content-center">
                                     <p className="mb-0 fs-1">1</p>
                                 </div>
-                                <p className="text-white mb-0 fs-5 fw-medium">Choisir la catégorie d'artisan dans le menu.</p>
+                                <p className="text-white mb-0 fs-5 fw-medium">Choisir la categorie d&apos;artisan dans le menu.</p>
                             </div>
 
                             <div className="col-1 d-none d-md-block position-relative"></div>
@@ -70,7 +72,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                                 <div className="step_circle mx-auto mb-3 rounded-circle bg-white d-flex align-items-center justify-content-center">
                                     <p className="mb-0 fs-1">4</p>
                                 </div>
-                                <p className="text-white mb-0 fs-5 fw-medium">Une réponse sera apportée sous 48h.</p>
+                                <p className="text-white mb-0 fs-5 fw-medium">Une reponse sera apportee sous 48h.</p>
                             </div>
                         </div>
                     </div>
@@ -82,6 +84,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                     {loading ? <p className="text-white text-center mb-0">Chargement des artisans...</p> : null}
                     {!loading && error ? <p className="text-warning text-center mb-0">{error}</p> : null}
 
+                    {/* Une meme grille de cartes est reutilisee sur toutes les pages categories. */}
                     {!loading && !error ? (
                         <div className="cards_track">
                             {artisans.map((artisan) => (
@@ -118,6 +121,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                 </div>
             </div>
 
+            {/* Cette modale affiche la fiche detaillee de l'artisan selectionne. */}
             {selectedArtisan ? (
                 <div className="artisan_modal_overlay" onClick={() => setSelectedArtisan(null)}>
                     <div className="artisan_modal card border-0" onClick={(event) => event.stopPropagation()}>
@@ -145,12 +149,12 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                             <div className="artisan_modal_grid">
                                 <p><span className="fw-bold">Ville :</span> {selectedArtisan.ville}</p>
                                 <p><span className="fw-bold">Note :</span> {selectedArtisan.note} <i className="bi bi-star-fill text-warning"></i></p>
-                                <p><span className="fw-bold">Catégorie :</span> {selectedArtisan.category}</p>
+                                <p><span className="fw-bold">Categorie :</span> {selectedArtisan.category}</p>
                                 <p><span className="fw-bold">Top artisan :</span> {selectedArtisan.top ? "Oui" : "Non"}</p>
                             </div>
 
                             <div className="mt-4">
-                                <p className="fw-bold mb-2">À propos</p>
+                                <p className="fw-bold mb-2">A propos</p>
                                 <p className="mb-0">{selectedArtisan.apropos || "Aucune description disponible."}</p>
                             </div>
 
@@ -160,7 +164,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                                     {selectedArtisan.email ? (
                                         <a href={`mailto:${selectedArtisan.email}`}>{selectedArtisan.email}</a>
                                     ) : (
-                                        "Non renseigné"
+                                        "Non renseigne"
                                     )}
                                 </p>
 
@@ -171,7 +175,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                                             {selectedArtisan.siteweb}
                                         </a>
                                     ) : (
-                                        "Non renseigné"
+                                        "Non renseigne"
                                     )}
                                 </p>
 
@@ -188,6 +192,7 @@ export default function ArtisansPage({ title, category, topOnly = false }) {
                 </div>
             ) : null}
 
+            {/* Cette seconde modale contient le formulaire de contact. */}
             {selectedArtisan && isContactFormOpen ? (
                 <div className="contact_modal_overlay" onClick={() => setIsContactFormOpen(false)}>
                     <div className="contact_modal card border-0" onClick={(event) => event.stopPropagation()}>

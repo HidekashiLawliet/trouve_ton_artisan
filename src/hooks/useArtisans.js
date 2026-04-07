@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { getArtisans } from "../services/apiClient";
 
+// Ce hook mutualise le chargement des artisans pour toutes les pages qui en ont besoin.
 export default function useArtisans(category, options = {}) {
     const [artisans, setArtisans] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const { topOnly = false } = options;
 
+    // Ce hook encapsule tout le cycle de chargement des artisans depuis l'API.
     useEffect(() => {
         let cancelled = false;
 
@@ -19,6 +21,7 @@ export default function useArtisans(category, options = {}) {
                     ? data.filter((artisan) => artisan.top === true)
                     : data;
 
+                // On evite de mettre a jour l'etat si le composant a deja ete demonte.
                 if (!cancelled) {
                     setArtisans(filteredData);
                 }
