@@ -1,4 +1,5 @@
 const db = require("../db/database");
+const { normalizeCategory } = require("../utils/normalizeCategory");
 
 function mapArtisan(row) {
     return {
@@ -11,7 +12,7 @@ function mapArtisan(row) {
         apropos: row.apropos,
         email: row.email,
         siteweb: row.siteweb,
-        category: row.category,
+        category: normalizeCategory(row.category),
         top: Boolean(row.top),
     };
 }
@@ -27,7 +28,7 @@ function getAllArtisans() {
             apropos,
             email,
             siteweb,
-            category,
+            categorie AS category,
             top
         FROM artisantable
         ORDER BY note DESC, Nom ASC
@@ -35,6 +36,8 @@ function getAllArtisans() {
 }
 
 function getArtisansByCategorySlug(slug) {
+    const normalizedTarget = normalizeCategory(slug);
+
     return db.prepare(`
         SELECT
             rowid AS id,
@@ -45,11 +48,11 @@ function getArtisansByCategorySlug(slug) {
             apropos,
             email,
             siteweb,
-            category,
+            categorie AS category,
             top
         FROM artisantable
         ORDER BY note DESC, Nom ASC
-    `).all().map(mapArtisan).filter((artisan) => artisan.category);
+    `).all().map(mapArtisan).filter((artisan) => artisan.category === normalizedTarget);
 }
 
 function getTopArtisans() {
@@ -63,7 +66,7 @@ function getTopArtisans() {
             apropos,
             email,
             siteweb,
-            category,
+            categorie AS category,
             top
         FROM artisantable
         WHERE top = 1

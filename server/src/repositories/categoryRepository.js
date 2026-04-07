@@ -1,4 +1,9 @@
 const db = require("../db/database");
+const { normalizeCategory } = require("../utils/normalizeCategory");
+
+function toDisplayName(slug) {
+    return slug.charAt(0).toUpperCase() + slug.slice(1);
+}
 
 function getAllCategories() {
     const rows = db.prepare(`
@@ -8,22 +13,26 @@ function getAllCategories() {
         ORDER BY categorie ASC
     `).all();
 
-    const categories = rows.map((row) => ({
-        slug: row.categorie,
-        name: row.categorie,
-    }));
-
     const uniqueCategories = Array.from(
-        new Map(categories.map((category) => [category.slug, category])).values()
+        new Map(
+            rows.map((row) => {
+                const slug = normalizeCategory(row.categorie);
+                return [slug, { slug, name: toDisplayName(slug) }];
+            })
+        ).values()
     );
 
     return uniqueCategories.map((category, index) => ({
         id: index + 1,
         slug: category.slug,
-        name: category.name.charAt(0).toUpperCase() + category.name.slice(1),
+        name: category.name,
     }));
 }
 
+function findCategoryBySlug(slug) {
+    const normalizedTarget = normalizeCategory(slug);
+    return getAllCategories().find((category) => category.slug === normalizedTarget) || null;
+}
 
 module.exports = {
     getAllCategories,

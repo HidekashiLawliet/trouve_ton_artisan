@@ -4,6 +4,9 @@
   "private": true,
   "type": "commonjs",
   "main": "src/server.js",
+  "dependencies": {
+    "express": "^4.22.1"
+  },
   "scripts": {
     "dev": "node src/server.js",
     "start": "node src/server.js",

@@ -13,9 +13,9 @@ import Cookies from "./pages/Cookies";
 import DonneesPersonnels from "./pages/Donnes_perso";
 import Fabrication from "./pages/Fabrication";
 import MentionsLegales from "./pages/Mention_legales";
+import NotFound from "./pages/NotFound";
 import Home from "./pages/prout";
 import Services from "./pages/Services";
-
 
 
 function App() {
@@ -86,6 +86,8 @@ function App() {
 			<Navbar />
 			<main className="content">
 				<Routes>
+
+
 					<Route path="/" element={<Home />} />
 					<Route path="/home" element={<Home />} />
 					<Route path="/alimentation" element={<Alimentation />} />
@@ -97,6 +99,7 @@ function App() {
 					<Route path="/accessibilite" element={<Accessibbilite />} />
 					<Route path="/donnees_personnels" element={<DonneesPersonnels />} />
 					<Route path="/cookies" element={<Cookies />} />
+					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</main >
 			<Footer />

@@ -1,87 +1,42 @@
-const fs = require("node:fs");
 const path = require("node:path");
-const http = require("node:http");
-const { URL } = require("node:url");
+const express = require("express");
 const env = require("./config/env");
-const { json, notFound } = require("./utils/response");
 const { listCategories } = require("./controllers/categoryController");
 const { listArtisans } = require("./controllers/artisanController");
 
 require("./db/initDb");
 
+const app = express();
 const publicRoot = path.resolve(__dirname, "..", "..", "public");
 
-function setCorsHeaders(response) {
-    response.setHeader("Access-Control-Allow-Origin", env.frontendOrigin);
-    response.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
-    response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-}
+app.use(express.json());
 
-function attachHelpers(response) {
-    response.json = (payload, statusCode = 200) => json(response, payload, statusCode);
-}
-
-function serveAsset(requestPath, response) {
-    const normalized = path.normalize(requestPath).replace(/^(\.\.[/\\])+/, "");
-    const filePath = path.resolve(publicRoot, `.${normalized}`);
-
-    if (!filePath.startsWith(publicRoot) || !fs.existsSync(filePath)) {
-        notFound(response);
-        return;
-    }
-
-    const contentTypes = {
-        ".png": "image/png",
-        ".jpg": "image/jpeg",
-        ".jpeg": "image/jpeg",
-        ".webp": "image/webp",
-        ".gif": "image/gif",
-        ".svg": "image/svg+xml",
-    };
-
-    response.writeHead(200, {
-        "Content-Type": contentTypes[path.extname(filePath).toLowerCase()] || "application/octet-stream",
-    });
-
-    fs.createReadStream(filePath).pipe(response);
-}
-
-const server = http.createServer((request, response) => {
-    attachHelpers(response);
-    setCorsHeaders(response);
+app.use((request, response, next) => {
+    response.header("Access-Control-Allow-Origin", env.frontendOrigin);
+    response.header("Access-Control-Allow-Methods", "GET,OPTIONS");
+    response.header("Access-Control-Allow-Headers", "Content-Type");
 
     if (request.method === "OPTIONS") {
-        response.writeHead(204);
-        response.end();
+        response.sendStatus(204);
         return;
     }
 
-    const requestUrl = new URL(request.url, `http://${request.headers.host}`);
-    const query = Object.fromEntries(requestUrl.searchParams.entries());
-
-    if (request.method === "GET" && requestUrl.pathname === "/api/health") {
-        response.json({ status: "ok" });
-        return;
-    }
-
-    if (request.method === "GET" && requestUrl.pathname === "/api/categories") {
-        listCategories({ query }, response);
-        return;
-    }
-
-    if (request.method === "GET" && requestUrl.pathname === "/api/artisans") {
-        listArtisans({ query }, response);
-        return;
-    }
-
-    if (request.method === "GET" && requestUrl.pathname.startsWith("/assets/")) {
-        serveAsset(requestUrl.pathname, response);
-        return;
-    }
-
-    notFound(response);
+    next();
 });
 
-server.listen(env.port, () => {
+app.use("/assets", express.static(path.join(publicRoot, "assets")));
+
+app.get("/api/health", (_request, response) => {
+    response.json({ status: "ok" });
+});
+
+app.get("/api/categories", listCategories);
+app.get("/api/artisans", listArtisans);
+
+app.use((_request, response) => {
+    response.status(404).json({ error: "Route not found" });
+});
+
+app.listen(env.port, () => {
     console.log(`API server listening on http://localhost:${env.port}`);
 });

@@ -16,7 +16,7 @@ function listArtisans(request, response) {
 
     const existingCategory = findCategoryBySlug(category);
     if (!existingCategory) {
-        response.json({ error: `Unknown category: ${category}` }, 404);
+        response.status(404).json({ error: `Unknown category: ${category}` });
         return;
     }
 
