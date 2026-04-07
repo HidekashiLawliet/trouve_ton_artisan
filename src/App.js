@@ -1,14 +1,18 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.scss';
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Accessibbilite from "./pages/Accessibilite";
 import Alimentation from "./pages/Alimentation";
 import Batiment from "./pages/Batiment";
+import Cookies from "./pages/Cookies";
+import DonneesPersonnels from "./pages/Donnes_perso";
 import Fabrication from "./pages/Fabrication";
+import MentionsLegales from "./pages/Mention_legales";
 import Home from "./pages/prout";
 import Services from "./pages/Services";
 
@@ -88,6 +92,11 @@ function App() {
 					<Route path="/batiment" element={<Batiment />} />
 					<Route path="/fabrication" element={<Fabrication />} />
 					<Route path="/services" element={<Services />} />
+
+					<Route path="/mentions_legales" element={<MentionsLegales />} />
+					<Route path="/accessibilite" element={<Accessibbilite />} />
+					<Route path="/donnees_personnels" element={<DonneesPersonnels />} />
+					<Route path="/cookies" element={<Cookies />} />
 				</Routes>
 			</main >
 			<Footer />

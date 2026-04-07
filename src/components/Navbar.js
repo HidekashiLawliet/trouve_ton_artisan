@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/img/Logo.png";
 
@@ -14,7 +13,7 @@ export default function Navbar() {
                     <img src={logo} alt="logo Trouve ton artisan" className="trouve_ton_artisan_logo" />
                 </a>
                 <div className=".d-none d-sm-none">
-                    <button type="button" class="btn btn-secondary bg-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" className="btn btn-secondary bg-dark" data-bs-toggle="dropdown" aria-expanded="false">
                         <i className="bi bi-list"></i>
                     </button>
                     <ul className="dropdown-menu col-12 px-3 dropdown-menu-end bg-dark text-white">
@@ -43,7 +42,7 @@ export default function Navbar() {
 
                 {/* header avec des text servant de boutons pour changer de pages */}
                 <div className="d-none text-black d-sm-block">
-                    <div className="navbar d-flex fs-3 align-content-center flex-row ">
+                    <div className="navbar d-flex fs-4 align-content-center flex-row ">
                         <NavLink className="nav-link mx-2" to="/alimentation">
                             Alimentation
                         </NavLink>

@@ -1,9 +1,73 @@
-.trouve_ton_artisan_logo {
-	height: 80px;
+@media (min-width: 1024px) {
+	/* desktop */
+	.trouve_ton_artisan_logo {
+		height: 60px;
+	}
+}
+
+@media (max-width: 1023px) and (min-width: 321px) {
+	.trouve_ton_artisan_logo {
+		height: 40px;
+	}
 }
 
 .footer {
 	background: #384050;
+}
+
+.card {
+	background: rgba(255, 255, 255, 0.514);
+}
+
+.card_container {
+	max-width: 1200px;
+	overflow-x: auto;
+	padding: 0, 1rem, 0, 1rem;
+}
+
+.cards_track {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc((100% - 2rem) / 3);
+	gap: 1rem;
+}
+
+.service_card {
+	min-width: 0;
+}
+
+.service_card .card {
+	padding: 15px;
+	min-height: 100%;
+
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease,
+		border-radius 0.3s ease;
+}
+
+.service_card .card:hover {
+	color: white;
+	background-color: #384050;
+	border-radius: 5px;
+}
+.card_body {
+	p {
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+}
+
+@media (max-width: 991px) {
+	.cards_track {
+		grid-auto-columns: calc((100% - 1rem) / 2);
+	}
+}
+
+@media (max-width: 575px) {
+	.cards_track {
+		grid-auto-columns: 100%;
+	}
 }
 
 #screen_background {
@@ -13,4 +77,3 @@
 		width: 50%;
 	}
 }
-//style="font-size: 4rem; color: #666;"
